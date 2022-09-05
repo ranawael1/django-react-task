@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from datetime import timedelta
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,12 +20,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ipl-h71j^w+@_3p$g0yez0fk@f6r%sduelq%5s_a7-o2t)*a#3'
+SECRET_KEY = 'django-insecure-ev%_^$x%h4ta4xjnhzg(onqhv!h$y-czusui$3@1*8wloqks@+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -39,16 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'rest_framework',
+    'rest_framework', 
     'corsheaders',
-
-    'apps.user'
+    'apps.user', 
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
+   'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -110,15 +106,13 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
+# https://docs.djangoproject.com/en/4.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 
@@ -140,7 +134,10 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ALLOW_CREDENTIALS = False
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
+
 ]
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
+AUTH_USER_MODEL = 'apps_user.User'
