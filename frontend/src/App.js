@@ -1,24 +1,27 @@
 import './App.css';
-// import Signup from './pages/Signup/Signup';
-import Login from './pages/Login/Login';
+import Login from './pages/Auth/Login/Login';
+import Signup from './pages/Auth/Siginup/Signup';
 import Home from './pages/Home/Home';
-import { BrowserRouter, Route, Switch, Link, Router } from "react-router-dom"
-import Signup from './pages/Siginup/Signup';
+import Products from './pages/Products/Products';
+import Cart from './pages/Cart/Cart';
+import { BrowserRouter, Route, Switch } from "react-router-dom"
+
 
 function App() {
 
   return (
     <BrowserRouter>
-      <div className='container mt-5 py-5'style={{minHeight:"100vh"}} >
         <Switch>
         <Route exact path={"/login"} component={Login} />
         <Route exact path={"/signup"} component={Signup} />
+        <Route exact path={"/products"} component={Products} />
+        <Route exact path={"/cart"} component={Cart} />
         <Route exact path={"/"} component={Home} />
      
         </Switch>
-      </div>
         
       </BrowserRouter>
+    
   );
 }
 

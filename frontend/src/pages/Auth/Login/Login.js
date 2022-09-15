@@ -28,6 +28,8 @@ export default function Login() {
         return tokenRequest.post(`/user/login/`, loginBody)
             .then((response)=> {
             window.localStorage.setItem("token", response.data.token.access)
+            window.localStorage.setItem("refresh-token", response.data.token.refresh)
+
             window.localStorage.setItem('user', response.data.user)
             return Promise.resolve(response.data)
             })

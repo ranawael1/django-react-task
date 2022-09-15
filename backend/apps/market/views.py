@@ -7,12 +7,70 @@ from rest_framework import status
 from .models import Product, Order, ProductOrder
 from .serializers import ProductSerializer, ProductOrderSerializer, OrderSerializer
 from django.shortcuts import get_object_or_404
+from influxdb_client import InfluxDBClient
+from django.http import JsonResponse
+from django.conf import settings
+
 User = get_user_model()
 
+def get_influx_client():
+    client = InfluxDBClient(
+        url= settings.INFLUXDB_URL, 
+        token=settings.INFLUXDB_TOKEN, 
+        org=settings.INFLUXDB_ORG)
+    return client
+
+
 class Home(APIView):
+    permission_classes = [IsAuthenticated]
+
     def get(self, request):
-        content = {'message': 'Hello from home :)'}
-        return Response(content)
+        context = {"message", "home"}
+        return Response(context)
+
+class OneData(APIView):
+    def get(self, request):
+        client = get_influx_client()
+        query = 'from(bucket: "influx-test") |> range(start: -20d, stop: -15d) |> filter(fn:(r) => r._measurement == "preSensors")'
+        tables = client.query_api().query(query, org="wai")
+        results = []
+        result = {}
+        test= []
+        count=0
+        for table in tables:
+            for record in table.records:
+                measurement = record.get_measurement()
+                from datetime import datetime
+                d = record.get_time().strftime("%Y-%m-%d %H:%M:%S")
+                result['time'] = d
+                result['value'] = record.get_value()
+                results.append(result.copy())
+            count +=1
+            test2 = {'id': measurement, f'data{count}': results}
+            test.append(test2.copy())
+        return Response(results)
+
+class TwoData(APIView):
+    def get(self, request):
+        client = get_influx_client()
+        query = 'from(bucket: "influx-test") |> range(start: -20d, stop: -15d)'
+        tables = client.query_api().query(query, org="wai")
+        results = []
+        result = {}
+        test= []
+        for table in tables:
+            for record in table.records:
+                measurement = record.get_measurement()
+                from datetime import datetime
+                d = record.get_time().strftime("%Y-%m-%d %H:%M:%S")
+                result['x'] = d
+                # result['field'] = record.get_field()
+                result['y'] = record.get_value()
+                results.append(result.copy())
+            test2 = {'id': measurement, 'data': results}
+            results= []
+            test.append(test2.copy())
+        return Response(test)
 
 class Products(APIView):
     permission_classes = [IsAuthenticated]

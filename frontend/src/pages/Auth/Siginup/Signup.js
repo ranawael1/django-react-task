@@ -1,4 +1,4 @@
-import "./../Login/Login.css"
+import "../Login/Login.css"
 import axios from 'axios'
 import { useState} from "react"
 import { Link, useHistory, Redirect } from "react-router-dom"
@@ -30,6 +30,7 @@ export default function Signup() {
         return tokenRequest.post(`/user/register/`, registerBody)
             .then((response)=> {
             window.localStorage.setItem("token", response.data.token.access)
+            window.localStorage.setItem("refresh-token", response.data.token.refresh)
             window.localStorage.setItem('user', response.data.user)
             return Promise.resolve(response.data)
             })
