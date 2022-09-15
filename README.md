@@ -1,5 +1,5 @@
 # Market App
-The web application  is built using Django,Django restframework, React, HTML, CSS, Bootstrap and JavaScript.
+The web application  is built using Django,Django restframework, MySQL, InfluxDB , React, HTML, CSS, Bootstrap and JavaScript.
 You will need to login to be able to view and buy products.
 
 ## Content
