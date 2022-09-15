@@ -4,8 +4,9 @@ You will need to login to be able to view and buy products.
 
 ## Content
 * [Setup](#setup)
+* [Usage](#usage)
 * [Demo](#demo)
-* [Author](#authors)
+* [Author](#author)
 
 
 
@@ -27,7 +28,10 @@ mysql -u root -p
 >> create database db;
 >> exit
 ```
-- go to settings file and chaneg the user and password for database
+- go to settings file: 
+    - change the user and password for database
+    - change the configrations of your influxdb
+ - got to apps/market/view and change the name of the measurements you want in OneData class
 - makemigrations for the databases and then run the backend project
 ```bash
 python3 manage.py makemigrations apps_user
@@ -51,6 +55,7 @@ npm start
 
 ## Usage
 Once the project is all set go to url:http://localhost.3000/
+
 
 
 ## Demo
